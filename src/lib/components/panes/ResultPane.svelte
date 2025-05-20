@@ -27,7 +27,7 @@
 		const lines = [
 			'import * as stylex from "@stylexjs/stylex";',
 			'',
-			'export const colors = stylex.create({'
+			'export const colors = stylex.defineVars({'
 		];
 		for (const record of colors) {
 			lines.push(`\t${camelCase(record.name)}: ${JSON.stringify(css_value(record))},`);
