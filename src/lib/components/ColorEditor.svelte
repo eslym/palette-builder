@@ -1,7 +1,11 @@
+<script lang="ts" module>
+	const COLLAPSED = Symbol('collapsed');
+</script>
+
 <script lang="ts">
 	import type { Action } from 'svelte/action';
 	import { noop } from 'lodash-es';
-	import { ChevronsUpDownIcon, MinusIcon } from '@lucide/svelte';
+	import { ChevronDownIcon, ChevronsUpDownIcon, MinusIcon, TrashIcon } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Label } from '$lib/components/ui/label';
 	import { Input } from '$lib/components/ui/input';
@@ -16,7 +20,7 @@
 		handle = noop,
 		onremove
 	}: {
-		color: ColorRecord;
+		color: ColorRecord & { [COLLAPSED]?: boolean };
 		handle?: Action<HTMLElement>;
 		onremove?: MouseEventHandler<HTMLElement>;
 	} = $props();
@@ -33,25 +37,36 @@
 <div class="grid grow grid-cols-[auto_1fr] gap-x-4 gap-y-2">
 	<Label for={id('name')} class="text-right">Variable Name</Label>
 	<Input id={id('name')} bind:value={color.name} />
-	<Label for={id('light-dark')} class="text-right">Light Dark</Label>
-	<Switch id={id('light-dark')} bind:checked={color.lightDark} />
-	<Label for={id('light')} class="text-right">Color</Label>
-	<div class="flex flex-row gap-1">
-		<Input
-			id={id('light')}
-			bind:value={color.light}
-			class="grow"
-			placeholder={color.lightDark ? 'Light Color' : ''}
-		/>
-		<ColorPreview color={color.light} />
-		{#if color.lightDark}
-			<Input id={id('dark')} bind:value={color.dark} class="ml-4 grow" placeholder="Dark Color" />
-			<ColorPreview color={color.dark} />
-		{/if}
-	</div>
+	{#if !color[COLLAPSED]}
+		<Label for={id('light-dark')} class="text-right">Light Dark</Label>
+		<Switch id={id('light-dark')} bind:checked={color.lightDark} />
+		<Label for={id('light')} class="text-right">Color</Label>
+		<div class="flex flex-row gap-1">
+			<Input
+				id={id('light')}
+				bind:value={color.light}
+				class="grow"
+				placeholder={color.lightDark ? 'Light Color' : ''}
+			/>
+			<ColorPreview color={color.light} />
+			{#if color.lightDark}
+				<Input id={id('dark')} bind:value={color.dark} class="ml-4 grow" placeholder="Dark Color" />
+				<ColorPreview color={color.dark} />
+			{/if}
+		</div>
+	{/if}
 </div>
-<div class="h-full items-start">
-	<Button variant="destructive" size="icon" onclick={onremove}>
-		<MinusIcon class="size-4" />
+<div class="flex h-full flex-col items-start justify-between">
+	<Button variant="ghost" size="icon" onclick={() => (color[COLLAPSED] = !color[COLLAPSED])}>
+		{#if color[COLLAPSED]}
+			<ChevronDownIcon class="size-4" />
+		{:else}
+			<MinusIcon class="size-4" />
+		{/if}
 	</Button>
+	{#if !color[COLLAPSED]}
+		<Button variant="destructive" size="icon" class="mt-auto" onclick={onremove}>
+			<TrashIcon class="size-4" />
+		</Button>
+	{/if}
 </div>

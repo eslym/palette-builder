@@ -52,7 +52,7 @@
 			<Resizable.Handle withHandle />
 			<Resizable.Pane class="min-w-96">
 				<Resizable.PaneGroup direction="vertical" autoSaveId="generator-pane">
-					<Resizable.Pane class="min-h-48">
+					<Resizable.Pane class="min-h-48 relative">
 						<EditorPane bind:colors />
 					</Resizable.Pane>
 					<Resizable.Handle withHandle />
