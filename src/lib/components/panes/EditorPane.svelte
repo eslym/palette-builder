@@ -28,6 +28,14 @@
 		const interval = setInterval(() => (container.scrollTop += scrollDiff), 50);
 		return () => clearInterval(interval);
 	});
+
+	$effect(() => {
+		if (dragState.dragging) {
+			document.body.style = 'cursor: grabbing !important;';
+		} else {
+			document.body.style = '';
+		}
+	});
 </script>
 
 {#if dragState.dragging}
@@ -79,6 +87,7 @@
 						class="bg-card border-border text-card-foreground ring-border grid w-full grid-cols-[auto_1fr_auto] gap-2 rounded-md border-1 px-2 py-4"
 						class:opacity-45={isDragging}
 						class:ring={isDragging}
+						class:pointer-events-none={isDragging}
 						ondraggingover={() => {
 							if (dragging === i) return;
 							const scroll = container.scrollTop;
