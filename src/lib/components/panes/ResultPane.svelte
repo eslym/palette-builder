@@ -17,7 +17,7 @@
 	function css_code(colors: ColorRecord[]) {
 		const lines = [':root {'];
 		for (const record of colors) {
-			lines.push(`\t--${kebabCase(record.name)}: ${css_value(record)};`);
+			lines.push(`\t--${record.name}: ${css_value(record)};`);
 		}
 		lines.push('}', '');
 		return lines.join('\n');
@@ -30,7 +30,7 @@
 			'export const colors = stylex.defineVars({'
 		];
 		for (const record of colors) {
-			lines.push(`\t${camelCase(record.name)}: ${JSON.stringify(css_value(record))},`);
+			lines.push(`\t${record.name}: ${JSON.stringify(css_value(record))},`);
 		}
 		lines.push('});', '');
 		return lines.join('\n');

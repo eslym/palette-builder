@@ -80,29 +80,29 @@
 		<div class="flex items-center text-center text-xs font-semibold">Accent</div>
 		<div class="flex flex-row gap-1">
 			<Input bind:value={config.light.accent} class="grow" />
-			<ColorPreview color={config.light.accent} />
+			<ColorPreview droppable bind:color={config.light.accent} />
 		</div>
 		<div class="flex flex-row gap-1">
 			<Input bind:value={config.dark.accent} class="grow" />
-			<ColorPreview color={config.dark.accent} />
+			<ColorPreview droppable bind:color={config.dark.accent} />
 		</div>
 		<div class="flex items-center text-center text-xs font-semibold">Gray</div>
 		<div class="flex flex-row gap-1">
 			<Input bind:value={config.light.gray} class="grow" />
-			<ColorPreview color={config.light.gray} />
+			<ColorPreview droppable bind:color={config.light.gray} />
 		</div>
 		<div class="flex flex-row gap-1">
 			<Input bind:value={config.dark.gray} class="grow" />
-			<ColorPreview color={config.dark.gray} />
+			<ColorPreview droppable bind:color={config.dark.gray} />
 		</div>
 		<div class="flex items-center text-center text-xs font-semibold">Background</div>
 		<div class="flex flex-row gap-1">
 			<Input bind:value={config.light.background} class="grow" />
-			<ColorPreview color={config.light.background} />
+			<ColorPreview droppable bind:color={config.light.background} />
 		</div>
 		<div class="flex flex-row gap-1">
 			<Input bind:value={config.dark.background} class="grow" />
-			<ColorPreview color={config.dark.background} />
+			<ColorPreview droppable bind:color={config.dark.background} />
 		</div>
 	</div>
 	<div class="mt-4 flex flex-row justify-end gap-2">

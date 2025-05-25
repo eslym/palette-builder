@@ -19,6 +19,7 @@
 
 <svelte:head>
 	<title>Build your own palette</title>
+	<meta name="description" content="A tool to build your own color palette." />
 </svelte:head>
 
 {#snippet render_tab(key: string, Com: Component)}
@@ -52,7 +53,7 @@
 			<Resizable.Handle withHandle />
 			<Resizable.Pane class="min-w-96">
 				<Resizable.PaneGroup direction="vertical" autoSaveId="generator-pane">
-					<Resizable.Pane class="min-h-48 relative">
+					<Resizable.Pane class="relative min-h-48">
 						<EditorPane bind:colors />
 					</Resizable.Pane>
 					<Resizable.Handle withHandle />

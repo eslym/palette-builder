@@ -61,6 +61,7 @@
 						if (!ev.dataTransfer) return;
 						ev.dataTransfer.setData('text/plain', display);
 						ev.dataTransfer.dropEffect = 'copy';
+						ev.dataTransfer.effectAllowed = 'copy';
 					}}
 					draggable
 				>

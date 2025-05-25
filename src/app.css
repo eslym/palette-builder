@@ -106,6 +106,9 @@
 }
 
 @layer base {
+  :root {
+    background-color: var(--background);
+  }
   * {
     @apply border-border outline-ring/50;
   }
