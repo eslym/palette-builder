@@ -51,7 +51,9 @@
 					const media = ['@media (prefers-color-scheme: dark) {', '\t:root {'];
 					for (const record of colors) {
 						root.push(`\t--${case_convert(record.name)}: ${record.light};`);
-						media.push(`\t\t--${case_convert(record.name)}: ${record.dark};`);
+						if (record.lightDark) {
+							media.push(`\t\t--${case_convert(record.name)}: ${record.dark};`);
+						}
 					}
 					root.push('}', '');
 					media.push('\t}', '}', '');
@@ -66,12 +68,16 @@
 						'export const colors = stylex.defineVars({'
 					];
 					for (const record of colors) {
-						lines.push(
-							`\t${case_convert(record.name)}: {`,
-							`\t\tdefault: ${JSON.stringify(record.light)},`,
-							`\t\t[mediaDark]: ${JSON.stringify(record.dark)}`,
-							'\t},'
-						);
+						if (record.lightDark) {
+							lines.push(
+								`\t${case_convert(record.name)}: {`,
+								`\t\tdefault: ${JSON.stringify(record.light)},`,
+								`\t\t[mediaDark]: ${JSON.stringify(record.dark)}`,
+								'\t},'
+							);
+						} else {
+							lines.push(`\t${case_convert(record.name)}: ${JSON.stringify(record.light)},`);
+						}
 					}
 					lines.push('});', '');
 					return lines.join('\n');
@@ -87,7 +93,9 @@
 					const kelas = ['.dark {'];
 					for (const record of colors) {
 						root.push(`\t--${case_convert(record.name)}: ${record.light};`);
-						kelas.push(`\t--${case_convert(record.name)}: ${record.dark};`);
+						if (record.lightDark) {
+							kelas.push(`\t--${case_convert(record.name)}: ${record.dark};`);
+						}
 					}
 					root.push('}', '');
 					kelas.push('}', '');
@@ -102,7 +110,9 @@
 					const theme = ['export const darkTheme = stylex.createTheme(colors, {'];
 					for (const record of colors) {
 						vars.push(`\t${case_convert(record.name)}: ${JSON.stringify(record.light)},`);
-						theme.push(`\t${case_convert(record.name)}: ${JSON.stringify(record.dark)},`);
+						if (record.lightDark) {
+							theme.push(`\t${case_convert(record.name)}: ${JSON.stringify(record.dark)},`);
+						}
 					}
 					vars.push('});', '');
 					theme.push('});', '');
