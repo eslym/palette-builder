@@ -17,21 +17,33 @@
 			format: 'hsl'
 		}
 	} as Record<string, { space: string; format: string }>;
+
+	const white = new Color('white');
+	const black = new Color('black');
+
+	function isDark(color: Color) {
+		return color.contrastLstar(white) > color.contrastLstar(black);
+	}
 </script>
 
 <script lang="ts">
 	import { buttonVariants } from '$lib/components/ui/button';
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import * as ContextMenu from '$lib/components/ui/context-menu';
-	import Colors from 'colorjs.io';
+	import Color from 'colorjs.io';
 	import { local } from '$lib/store';
 	import { toast } from 'svelte-sonner';
+	import ColorPreview from '$lib/components/ColorPreview.svelte';
 
-	let { color, name }: { color: string; name?: string } = $props();
+	let {
+		color,
+		name,
+		label = undefined
+	}: { color: string; name?: string; label?: string } = $props();
 
 	let format = $derived(local['color-format'] ?? 'oklch');
 	let _format = $derived(formats[format]);
-	let _color = $derived(new Colors(color));
+	let _color = $derived(new Color(color));
 
 	let display = $derived(
 		_color.to(_format.space).toString({ format: _format.format, precision: 4 })
@@ -65,14 +77,24 @@
 					}}
 					draggable
 				>
-					<div class="h-full w-full" style="background-color: {display}"></div>
+					<div
+						class="flex h-full w-full items-center justify-center text-xs font-semibold"
+						style="background-color: {display}"
+						class:text-white={isDark(_color)}
+						class:text-black={!isDark(_color)}
+					>
+						{label}
+					</div>
 				</Tooltip.Trigger>
 			</div>
-			<Tooltip.Content class="text-xs">
-				{#if name}
-					<p class="font-semibold capitalize">{name}</p>
-				{/if}
-				<p class="font-mono">{display}</p>
+			<Tooltip.Content class="flex flex-row items-center gap-2 text-xs">
+				<ColorPreview {color} />
+				<div class="grow">
+					{#if name}
+						<p class="font-semibold capitalize">{name}</p>
+					{/if}
+					<p class="font-mono">{display}</p>
+				</div>
 			</Tooltip.Content>
 		</Tooltip.Root>
 	</Tooltip.Provider>

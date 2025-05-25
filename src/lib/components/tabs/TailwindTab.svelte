@@ -51,7 +51,7 @@
 				<th class="px-1 py-0.5 text-xs capitalize">{key}</th>
 				{#each tailwind_variants as variant}
 					<td class="p-0.5">
-						<ColorBlock color={colors[key][variant]} name="{key} {variant}" />
+						<ColorBlock color={colors[key][variant]} name="{key} {variant}" label={`${variant}`} />
 					</td>
 				{/each}
 			</tr>

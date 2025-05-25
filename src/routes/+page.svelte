@@ -5,10 +5,11 @@
 	import TailwindTab from '$lib/components/tabs/TailwindTab.svelte';
 	import RadixTab from '$lib/components/tabs/RadixTab.svelte';
 	import { type Component } from 'svelte';
-	import CustomRadixTab from '$lib/components/tabs/CustomRadixTab.svelte';
+	import CustomRadixTab from '$lib/components/panes/CustomRadixPane.svelte';
 	import { local } from '$lib/store';
 	import EditorPane from '$lib/components/panes/EditorPane.svelte';
 	import ResultPane from '$lib/components/panes/ResultPane.svelte';
+	import CustomRadixPane from '$lib/components/panes/CustomRadixPane.svelte';
 
 	let colors: ColorRecord[] = $state(JSON.parse(local['color-palette'] ?? '[]'));
 
@@ -36,19 +37,25 @@
 	<div class="h-dvh w-screen">
 		<Resizable.PaneGroup direction="horizontal" autoSaveId="main-pane">
 			<Resizable.Pane class="min-w-96 p-2">
-				<Tabs.Root
-					class="h-full w-full"
-					bind:value={() => local['color-tab'] ?? 'tw', (val) => (local['color-tab'] = val)}
-				>
-					<Tabs.List class="w-full">
-						<Tabs.Trigger value="tw">Tailwind</Tabs.Trigger>
-						<Tabs.Trigger value="rd">Radix</Tabs.Trigger>
-						<Tabs.Trigger value="rdc">Custom Radix</Tabs.Trigger>
-					</Tabs.List>
-					{@render render_tab('tw', TailwindTab)}
-					{@render render_tab('rd', RadixTab)}
-					{@render render_tab('rdc', CustomRadixTab)}
-				</Tabs.Root>
+				<Resizable.PaneGroup direction="vertical" autoSaveId="color-pane">
+					<Resizable.Pane class="min-h-48">
+						<Tabs.Root
+							class="h-full w-full"
+							bind:value={() => local['color-tab'] ?? 'tw', (val) => (local['color-tab'] = val)}
+						>
+							<Tabs.List class="w-full">
+								<Tabs.Trigger value="tw">Tailwind</Tabs.Trigger>
+								<Tabs.Trigger value="rd">Radix</Tabs.Trigger>
+							</Tabs.List>
+							{@render render_tab('tw', TailwindTab)}
+							{@render render_tab('rd', RadixTab)}
+						</Tabs.Root>
+					</Resizable.Pane>
+					<Resizable.Handle withHandle />
+					<Resizable.Pane class="min-h-48">
+						<CustomRadixPane />
+					</Resizable.Pane>
+				</Resizable.PaneGroup>
 			</Resizable.Pane>
 			<Resizable.Handle withHandle />
 			<Resizable.Pane class="min-w-96">

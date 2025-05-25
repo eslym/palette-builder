@@ -68,11 +68,7 @@
 	}
 </script>
 
-<Button href="https://www.radix-ui.com/colors/custom" variant="secondary" target="_blank">
-	Source: RadixUI Colors
-</Button>
-
-<div class="my-8 px-2">
+<div class="h-full w-full overflow-auto p-6">
 	<div class="grid grid-cols-[auto_1fr_1fr] gap-x-2.5 gap-y-2">
 		<div></div>
 		<div class="text-center text-xs font-semibold">Light</div>

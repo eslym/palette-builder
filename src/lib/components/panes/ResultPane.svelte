@@ -27,7 +27,11 @@
 					return lines.join('\n');
 				},
 				stylex(colors: ColorRecord[], case_convert: (str: string) => string) {
-					const lines = ['export const colors = stylex.defineVars({'];
+					const lines = [
+						'import * as stylex from "@stylexjs/stylex";',
+						'',
+						'export const colors = stylex.defineVars({'
+					];
 					for (const record of colors) {
 						lines.push(
 							`\t${case_convert(record.name)}: light_dark(${JSON.stringify(record.light)}, ${JSON.stringify(record.dark)}),`
@@ -54,12 +58,18 @@
 					return root.concat(media).join('\n');
 				},
 				stylex(colors: ColorRecord[], case_convert: (str: string) => string) {
-					const lines = ['export const colors = stylex.defineVars({'];
+					const lines = [
+						'import * as stylex from "@stylexjs/stylex";',
+						'',
+						'const mediaDark = "@media (prefers-color-scheme: dark)";',
+						'',
+						'export const colors = stylex.defineVars({'
+					];
 					for (const record of colors) {
 						lines.push(
 							`\t${case_convert(record.name)}: {`,
 							`\t\tdefault: ${JSON.stringify(record.light)},`,
-							`\t\t'@media (prefers-color-scheme: dark)': ${JSON.stringify(record.dark)}`,
+							`\t\t[mediaDark]: ${JSON.stringify(record.dark)}`,
 							'\t},'
 						);
 					}
@@ -84,7 +94,11 @@
 					return root.concat(kelas).join('\n');
 				},
 				stylex(colors: ColorRecord[], case_convert: (str: string) => string) {
-					const vars = ['export const colors = stylex.defineVars({'];
+					const vars = [
+						'import * as stylex from "@stylexjs/stylex";',
+						'',
+						'export const colors = stylex.defineVars({'
+					];
 					const theme = ['export const darkTheme = stylex.createTheme(colors, {'];
 					for (const record of colors) {
 						vars.push(`\t${case_convert(record.name)}: ${JSON.stringify(record.light)},`);
@@ -112,8 +126,6 @@
 
 	let css_case = $derived(cases.get(local['css-case'])!.fn);
 	let stylex_case = $derived(cases.get(local['stylex-case'])!.fn);
-
-	$inspect(css_case, stylex_case);
 </script>
 
 {#snippet render_tab(key: string, children: Snippet)}
