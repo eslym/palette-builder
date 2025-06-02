@@ -36,9 +36,9 @@
 {#if !import.meta.env.SSR}
 	<div class="h-dvh w-screen">
 		<Resizable.PaneGroup direction="horizontal" autoSaveId="main-pane">
-			<Resizable.Pane class="min-w-96 p-2">
+			<Resizable.Pane class="min-w-96">
 				<Resizable.PaneGroup direction="vertical" autoSaveId="color-pane">
-					<Resizable.Pane class="min-h-48">
+					<Resizable.Pane class="min-h-48 p-2">
 						<Tabs.Root
 							class="h-full w-full"
 							bind:value={() => local['color-tab'] ?? 'tw', (val) => (local['color-tab'] = val)}
@@ -52,7 +52,7 @@
 						</Tabs.Root>
 					</Resizable.Pane>
 					<Resizable.Handle withHandle />
-					<Resizable.Pane class="min-h-48">
+					<Resizable.Pane class="min-h-48 p-2">
 						<CustomRadixPane />
 					</Resizable.Pane>
 				</Resizable.PaneGroup>

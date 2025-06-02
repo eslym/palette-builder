@@ -91,9 +91,8 @@
 						ondraggingover={() => {
 							if (dragging === i) return;
 							const scroll = container.scrollTop;
-							const current = colors[dragging];
-							colors[dragging] = colors[i];
-							colors[i] = current;
+							const current = colors.splice(dragging, 1)[0];
+							colors.splice(i, 0, current);
 							dragging = i;
 							tick().then(() => {
 								container.scrollTop = scroll;
