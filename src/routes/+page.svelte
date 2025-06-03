@@ -25,9 +25,11 @@
 
 {#snippet render_tab(key: string, Com: Component)}
 	<Tabs.Content value={key} class="h-0 w-full grow">
-		<Card.Root class="h-full w-full overflow-auto">
-			<Card.Content>
-				<Com />
+		<Card.Root class="h-full w-full overflow-auto py-0">
+			<Card.Content class="h-full w-full overflow-hidden p-0 py-0">
+				<div class="h-full w-full overflow-auto p-6">
+					<Com />
+				</div>
 			</Card.Content>
 		</Card.Root>
 	</Tabs.Content>

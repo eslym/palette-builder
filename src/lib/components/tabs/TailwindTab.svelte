@@ -1,8 +1,6 @@
 <script lang="ts">
 	import ColorBlock from '$lib/components/ColorBlock.svelte';
-	import { Button, buttonVariants } from '$lib/components/ui/button';
-	import * as Tooltip from '$lib/components/ui/tooltip';
-	import { toast } from 'svelte-sonner';
+	import { Button } from '$lib/components/ui/button';
 	import colors from 'tailwindcss/colors';
 
 	const tailwind_keys = [

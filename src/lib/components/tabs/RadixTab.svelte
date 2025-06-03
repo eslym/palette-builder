@@ -5,12 +5,10 @@
 	import * as Popover from '$lib/components/ui/popover';
 	import * as Command from '$lib/components/ui/command';
 	import { ChevronsUpDownIcon } from '@lucide/svelte';
-	import * as Tooltip from '$lib/components/ui/tooltip';
 	import { scaleNames } from '$lib/radix';
 	import { local } from '$lib/store';
 	import { tick } from 'svelte';
 	import Colors from 'colorjs.io';
-	import { toast } from 'svelte-sonner';
 	import ColorBlock from '$lib/components/ColorBlock.svelte';
 
 	let popup = $state(false);

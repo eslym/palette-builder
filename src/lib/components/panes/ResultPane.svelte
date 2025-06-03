@@ -140,9 +140,11 @@
 
 {#snippet render_tab(key: string, children: Snippet)}
 	<Tabs.Content value={key} class="h-0 w-full grow">
-		<Card.Root class="h-full w-full overflow-auto">
-			<Card.Content>
-				{@render children()}
+		<Card.Root class="h-full w-full overflow-hidden py-0">
+			<Card.Content class="h-full w-full overflow-hidden p-0">
+				<div class="h-full w-full overflow-auto p-6">
+					{@render children()}
+				</div>
 			</Card.Content>
 		</Card.Root>
 	</Tabs.Content>
